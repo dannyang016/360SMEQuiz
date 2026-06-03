@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SME Business Loan Consultant — Interview Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #024C72;
+    --navy-light: #013A57;
+    --gold: #FFCC7C;
+    --gold-light: #FFD98F;
+    --cream: #F8F4EE;
+    --cream-dark: #EDE8DF;
+    --white: #FFFFFF;
+    --text: #024C72;
+    --text-muted: #4A7A96;
+    --success: #1A6B45;
+    --success-bg: #E6F4EE;
+    --danger: #8B1A1A;
+    --danger-bg: #FAEAEA;
+    --border: rgba(11,31,58,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: var(--navy);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .page-header .logo {
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .page-header .subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* ── START SCREEN ── */
+  .start-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .start-card .badge-top {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .start-card h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .start-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+  .start-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+  .start-meta-item {
+    text-align: center;
+  }
+  .start-meta-item .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .start-meta-item .lbl {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .divider { width: 1px; background: var(--border); align-self: stretch; }
+
+  .form-group { margin-bottom: 16px; text-align: left; }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 11px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--navy); background: var(--white); }
+
+  .btn-start {
+    width: 100%;
+    padding: 14px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .btn-start:hover { background: var(--navy-light); }
+
+  /* ── QUIZ SCREEN ── */
+  .quiz-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .q-counter { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .score-pill {
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .progress-track {
+    height: 4px;
+    background: var(--cream-dark);
+    border-radius: 2px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .q-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-bottom: 16px;
+  }
+  .q-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    color: var(--navy);
+    line-height: 1.45;
+    margin-bottom: 24px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: background 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+  .option-btn:last-child { margin-bottom: 0; }
+  .option-btn:hover:not(:disabled) { background: var(--cream-dark); border-color: rgba(11,31,58,0.25); }
+  .option-btn .opt-label {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  .option-btn.correct { background: var(--success-bg); border-color: var(--success); }
+  .option-btn.correct .opt-label { background: var(--success); border-color: var(--success); color: #fff; }
+  .option-btn.wrong { background: var(--danger-bg); border-color: var(--danger); }
+  .option-btn.wrong .opt-label { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .option-btn.reveal { background: var(--success-bg); border-color: var(--success); }
+  .option-btn.reveal .opt-label { background: var(--success); border-color: var(--success); color: #fff; }
+
+  .feedback-box {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    display: none;
+    line-height: 1.5;
+  }
+
+  .btn-next {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+    float: right;
+    transition: background 0.2s;
+  }
+  .btn-next:hover { background: var(--navy-light); }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  /* ── RESULT SCREEN ── */
+  .result-header {
+    background: var(--navy);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 32px 36px;
+    color: var(--white);
+  }
+  .result-header .company { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .result-header h2 { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); margin-bottom: 2px; }
+  .result-header .pos { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .result-header .date { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  .result-body {
+    background: var(--white);
+    border-radius: 0 0 var(--radius) var(--radius);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 32px 36px;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .score-box .big { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--gold); line-height: 1; }
+  .score-box .sm { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .score-details h3 { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 4px; }
+  .score-details p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+  .perf-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .perf-excellent { background: #E6F4EE; color: #1A6B45; }
+  .perf-good { background: #FFF8EC; color: #013A57; }
+  .perf-average { background: #FFF5E0; color: #7A5000; }
+  .perf-poor { background: #FAEAEA; color: #8B1A1A; }
+
+  .review-section h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .review-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .review-item:last-child { border-bottom: none; }
+  .rev-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .rev-ok { background: var(--success-bg); color: var(--success); }
+  .rev-no { background: var(--danger-bg); color: var(--danger); }
+  .rev-q { font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
+  .rev-a { color: var(--text-muted); font-size: 12px; }
+  .rev-a .wrong-ans { color: var(--danger); }
+  .rev-a .right-ans { color: var(--success); font-weight: 500; }
+
+  .result-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .btn-restart {
+    padding: 11px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.2s;
+  }
+  .btn-restart:hover { background: var(--cream); }
+  .btn-print {
+    padding: 11px 22px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--white);
+    transition: background 0.2s;
+  }
+  .btn-print:hover { background: var(--navy-light); }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    body { background: #fff; }
+    .page-header { background: #024C72 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .no-print { display: none !important; }
+    .result-header { background: #024C72 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .score-box { background: #024C72 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .container { padding: 20px; }
+    .result-actions { display: none !important; }
+  }
+
+  .hidden { display: none !important; }
+
+  /* Animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.3s ease; }
+</style>
+</head>
+<body>
+
+<div class="page-header no-print">
+  <div class="logo">Interview Assessment</div>
+  <div class="subtitle">SME Business Loan Consultant</div>
+</div>
+
+<div class="container">
+
+  <!-- START -->
+  <div id="screen-start" class="start-card fade-up">
+    <div class="badge-top">Interview Assessment</div>
+    <h1>SME Business Loan<br>Consultant</h1>
+    <p>Math & loan calculation aptitude test</p>
+    <div class="start-meta">
+      <div class="start-meta-item">
+        <div class="num">20</div>
+        <div class="lbl">Questions</div>
+      </div>
+      <div class="divider"></div>
+      <div class="start-meta-item">
+        <div class="num">MCQ</div>
+        <div class="lbl">Format</div>
+      </div>
+      <div class="divider"></div>
+      <div class="start-meta-item">
+        <div class="num">RM</div>
+        <div class="lbl">Currency</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Candidate full name</label>
+      <input type="text" id="inp-name" placeholder="e.g. Ahmad bin Abdullah" />
+    </div>
+    <div class="form-group">
+      <label>Position applied for</label>
+      <input type="text" id="inp-pos" placeholder="e.g. SME Business Loan Consultant" />
+    </div>
+    <div class="form-group">
+      <label>Interviewer name</label>
+      <input type="text" id="inp-interviewer" placeholder="e.g. Sarah Lim" />
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Begin Assessment &rarr;</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="hidden">
+    <div class="quiz-top">
+      <span class="q-counter" id="q-counter">Question 1 of 20</span>
+      <span class="score-pill" id="score-pill">Score: 0 / 0</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:5%"></div>
+    </div>
+    <div class="q-card fade-up" id="q-card">
+      <div class="q-cat" id="q-cat">Category</div>
+      <div class="q-text" id="q-text">Question text here</div>
+      <div id="q-opts"></div>
+      <div class="feedback-box" id="feedback-box"></div>
+    </div>
+    <div class="clearfix">
+      <button class="btn-next no-print" id="btn-next" onclick="nextQ()">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" class="hidden fade-up">
+    <div class="result-header">
+      <div class="company">SME Business Loan Consultant — Interview Assessment</div>
+      <h2 id="r-name">Candidate Name</h2>
+      <div class="pos" id="r-pos">Position</div>
+      <div class="date" id="r-date">Date</div>
+    </div>
+    <div class="result-body">
+      <div class="score-row">
+        <div class="score-box">
+          <div class="big" id="r-score">0/20</div>
+          <div class="sm" id="r-pct">0%</div>
+        </div>
+        <div class="score-details">
+          <div class="perf-badge" id="r-badge">—</div>
+          <h3 id="r-title">—</h3>
+          <p id="r-remark">—</p>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:6px;" id="r-interviewer"></p>
+        </div>
+      </div>
+      <div class="review-section">
+        <h4>Question review</h4>
+        <div id="r-review"></div>
+      </div>
+      <div class="result-actions no-print">
+        <button class="btn-restart" onclick="restart()">&#8635; Restart</button>
+        <button class="btn-print" onclick="window.print()">&#128438; Print Result</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const Qs = [
+  { cat:"Loan amount", q:"A property is valued at RM 5,000,000 and the bank offers 85% margin of financing. What is the loan amount?", opts:["RM 3,500,000","RM 4,000,000","RM 4,250,000","RM 4,500,000"], ans:2, exp:"85% × RM 5,000,000 = RM 4,250,000" },
+  { cat:"Down payment", q:"A commercial property costs RM 2,200,000. The bank approves 90% financing. How much is the down payment?", opts:["RM 180,000","RM 200,000","RM 220,000","RM 240,000"], ans:2, exp:"Down payment = 10% × RM 2,200,000 = RM 220,000" },
+  { cat:"Loan amount", q:"A shophouse is worth RM 1,800,000 and the bank offers 80% margin. What is the loan amount?", opts:["RM 1,200,000","RM 1,350,000","RM 1,440,000","RM 1,600,000"], ans:2, exp:"80% × RM 1,800,000 = RM 1,440,000" },
+  { cat:"Interest calculation", q:"What is the total flat interest payable on a RM 300,000 loan at 4% p.a. flat rate over 5 years?", opts:["RM 48,000","RM 60,000","RM 72,000","RM 80,000"], ans:1, exp:"4% × RM 300,000 × 5 years = RM 60,000" },
+  { cat:"Outstanding balance", q:"A customer has a loan of RM 900,000 and has paid off RM 250,000 in principal. What is the outstanding balance?", opts:["RM 550,000","RM 600,000","RM 650,000","RM 700,000"], ans:2, exp:"RM 900,000 − RM 250,000 = RM 650,000" },
+  { cat:"Margin of financing", q:"A loan of RM 3,400,000 was approved for a property worth RM 4,000,000. What is the margin of financing?", opts:["80%","82%","85%","90%"], ans:2, exp:"RM 3,400,000 ÷ RM 4,000,000 × 100 = 85%" },
+  { cat:"Loan amount", q:"A factory is valued at RM 7,500,000. The bank offers 70% margin. What is the maximum loan?", opts:["RM 4,500,000","RM 5,000,000","RM 5,250,000","RM 5,500,000"], ans:2, exp:"70% × RM 7,500,000 = RM 5,250,000" },
+  { cat:"Down payment", q:"A SME purchases equipment worth RM 450,000 with 80% bank financing. How much must the SME pay upfront?", opts:["RM 70,000","RM 80,000","RM 90,000","RM 100,000"], ans:2, exp:"Down payment = 20% × RM 450,000 = RM 90,000" },
+  { cat:"Interest calculation", q:"Total flat interest on RM 800,000 at 3.5% p.a. over 7 years is:", opts:["RM 168,000","RM 182,000","RM 196,000","RM 210,000"], ans:2, exp:"3.5% × RM 800,000 × 7 = RM 196,000" },
+  { cat:"Loan amount", q:"A commercial lot costs RM 6,000,000. Bank finances 75%. What is the loan amount?", opts:["RM 3,750,000","RM 4,000,000","RM 4,500,000","RM 5,000,000"], ans:2, exp:"75% × RM 6,000,000 = RM 4,500,000" },
+  { cat:"Down payment", q:"Property worth RM 1,500,000, bank offers 85% financing. What is the down payment?", opts:["RM 200,000","RM 225,000","RM 250,000","RM 275,000"], ans:1, exp:"Down payment = 15% × RM 1,500,000 = RM 225,000" },
+  { cat:"Margin of financing", q:"Loan approved is RM 2,550,000 for a property worth RM 3,000,000. What is the margin of financing?", opts:["80%","82%","85%","90%"], ans:2, exp:"RM 2,550,000 ÷ RM 3,000,000 × 100 = 85%" },
+  { cat:"Outstanding balance", q:"A RM 1,200,000 loan. Customer has repaid RM 480,000 in principal. What is the outstanding balance?", opts:["RM 620,000","RM 680,000","RM 720,000","RM 760,000"], ans:2, exp:"RM 1,200,000 − RM 480,000 = RM 720,000" },
+  { cat:"Loan amount", q:"A warehouse is appraised at RM 4,800,000. Bank approves 87.5% margin. What is the loan amount?", opts:["RM 3,960,000","RM 4,000,000","RM 4,200,000","RM 4,320,000"], ans:2, exp:"87.5% × RM 4,800,000 = RM 4,200,000" },
+  { cat:"Loan amount", q:"A customer wants to buy a property at RM 3,200,000 with 90% margin. What is the loan amount?", opts:["RM 2,560,000","RM 2,720,000","RM 2,880,000","RM 3,000,000"], ans:2, exp:"90% × RM 3,200,000 = RM 2,880,000" },
+  { cat:"Interest calculation", q:"What is the total flat interest on RM 500,000 at 5% p.a. over 10 years?", opts:["RM 200,000","RM 250,000","RM 300,000","RM 350,000"], ans:1, exp:"5% × RM 500,000 × 10 = RM 250,000" },
+  { cat:"Down payment", q:"A property costs RM 4,000,000. Bank offers 80% margin. What is the down payment?", opts:["RM 600,000","RM 700,000","RM 800,000","RM 900,000"], ans:2, exp:"Down payment = 20% × RM 4,000,000 = RM 800,000" },
+  { cat:"Margin of financing", q:"A customer takes a loan of RM 1,080,000 on a property worth RM 1,200,000. What is the margin?", opts:["85%","88%","90%","92%"], ans:2, exp:"RM 1,080,000 ÷ RM 1,200,000 × 100 = 90%" },
+  { cat:"Outstanding balance", q:"A loan of RM 2,000,000. Customer has paid RM 650,000 in principal. What is outstanding?", opts:["RM 1,250,000","RM 1,300,000","RM 1,350,000","RM 1,400,000"], ans:2, exp:"RM 2,000,000 − RM 650,000 = RM 1,350,000" },
+  { cat:"DSR concept", q:"A customer earns RM 15,000/month. Bank allows max DSR of 60%. Existing commitments are RM 4,000/month. What is the maximum new monthly instalment allowed?", opts:["RM 4,000","RM 5,000","RM 6,000","RM 9,000"], ans:1, exp:"Max total commitment = 60% × RM 15,000 = RM 9,000. Available = RM 9,000 − RM 4,000 = RM 5,000" }
+];
+
+let cur=0, score=0, answers=[], name='', pos='', interviewer='';
+
+function startQuiz(){
+  name = document.getElementById('inp-name').value.trim();
+  pos = document.getElementById('inp-pos').value.trim();
+  interviewer = document.getElementById('inp-interviewer').value.trim();
+  if(!name){ alert('Please enter the candidate name.'); return; }
+  document.getElementById('screen-start').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQ();
+}
+
+function renderQ(){
+  const q = Qs[cur];
+  document.getElementById('q-counter').textContent = 'Question '+(cur+1)+' of 20';
+  document.getElementById('score-pill').textContent = 'Score: '+score+' / '+cur;
+  document.getElementById('progress-fill').style.width = (((cur+1)/20)*100).toFixed(0)+'%';
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('btn-next').style.display = 'none';
+  document.getElementById('feedback-box').style.display = 'none';
+  const opts = document.getElementById('q-opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className='option-btn';
+    b.innerHTML='<span class="opt-label">'+String.fromCharCode(65+i)+'</span><span>'+o+'</span>';
+    b.onclick=()=>pick(i);
+    opts.appendChild(b);
+  });
+  document.getElementById('q-card').classList.remove('fade-up');
+  void document.getElementById('q-card').offsetWidth;
+  document.getElementById('q-card').classList.add('fade-up');
+}
+
+function pick(i){
+  const q = Qs[cur];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b=>b.disabled=true);
+  const ok = i===q.ans;
+  if(ok){ score++; btns[i].className='option-btn correct'; }
+  else { btns[i].className='option-btn wrong'; btns[q.ans].className='option-btn reveal'; }
+  answers.push({q:q.q, cat:q.cat, chosen:i, correct:q.ans, ok, exp:q.exp, opts:q.opts});
+  const fb = document.getElementById('feedback-box');
+  fb.style.display='block';
+  fb.innerHTML = (ok?'<strong style="color:var(--success)">Correct!</strong> ':'<strong style="color:var(--danger)">Incorrect.</strong> ') + q.exp;
+  document.getElementById('score-pill').textContent='Score: '+score+' / '+(cur+1);
+  document.getElementById('btn-next').style.display='block';
+}
+
+function nextQ(){
+  cur++;
+  if(cur>=Qs.length){ showResult(); return; }
+  renderQ();
+}
+
+function showResult(){
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+  document.getElementById('r-name').textContent=name;
+  document.getElementById('r-pos').textContent=pos||'SME Business Loan Consultant';
+  document.getElementById('r-date').textContent='Date: '+new Date().toLocaleDateString('en-MY',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('r-score').textContent=score+'/20';
+  const pct=Math.round(score/20*100);
+  document.getElementById('r-pct').textContent=pct+'%';
+  if(interviewer) document.getElementById('r-interviewer').textContent='Assessed by: '+interviewer;
+  let badge, title, remark, cls;
+  if(pct>=90){ badge='Excellent'; title='Outstanding performance'; remark='Strong command of loan calculations. Highly recommended for the role.'; cls='perf-excellent'; }
+  else if(pct>=70){ badge='Good'; title='Good understanding'; remark='Solid grasp of key concepts. Recommended to proceed to next round.'; cls='perf-good'; }
+  else if(pct>=50){ badge='Average'; title='Basic knowledge present'; remark='Understands fundamentals but needs development. Further assessment advised.'; cls='perf-average'; }
+  else { badge='Below expectation'; title='Needs improvement'; remark='Significant gaps in loan calculation knowledge. Training required before placement.'; cls='perf-poor'; }
+  const rb=document.getElementById('r-badge');
+  rb.textContent=badge; rb.className='perf-badge '+cls;
+  document.getElementById('r-title').textContent=title;
+  document.getElementById('r-remark').textContent=remark;
+  const rev=document.getElementById('r-review');
+  rev.innerHTML='';
+  answers.forEach((a,idx)=>{
+    const d=document.createElement('div');
+    d.className='review-item';
+    const iconCls=a.ok?'rev-icon rev-ok':'rev-icon rev-no';
+    const iconChar=a.ok?'&#10003;':'&#10007;';
+    let ansLine = a.ok
+      ? '<span class="right-ans">'+a.opts[a.correct]+'</span>'
+      : '<span class="wrong-ans">Your answer: '+a.opts[a.chosen]+'</span> &nbsp;&bull;&nbsp; <span class="right-ans">Correct: '+a.opts[a.correct]+'</span>';
+    d.innerHTML='<div class="'+iconCls+'">'+iconChar+'</div><div><div class="rev-q">Q'+(idx+1)+'. '+a.q+'</div><div class="rev-a">'+ansLine+'</div></div>';
+    rev.appendChild(d);
+  });
+}
+
+function restart(){
+  cur=0; score=0; answers=[];
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('screen-start').classList.remove('hidden');
+  document.getElementById('inp-name').value='';
+  document.getElementById('inp-pos').value='';
+  document.getElementById('inp-interviewer').value='';
+}
+</script>
+</body>
+</html>
